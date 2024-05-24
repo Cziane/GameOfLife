@@ -24,7 +24,7 @@ namespace DataLayerGameOfLife.Repositories
 
         public void Delete(int id)
         {
-            var state = this._context.InitialStates.FirstOrDefault(id);
+            var state = this._context.InitialStates.Find(id);
 
             if (state != null)
             {
