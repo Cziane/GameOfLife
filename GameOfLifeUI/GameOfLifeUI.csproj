@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataLayerGameOfLife\DataLayerGameOfLife.csproj" />
     <ProjectReference Include="..\GameOfLife\GameOfLife.csproj" />
   </ItemGroup>
 

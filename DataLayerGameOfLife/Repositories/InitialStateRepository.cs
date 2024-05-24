@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataLayerGameOfLife.Repositories
 {
-    internal class InitialStateRepository : IInitialStateRepository
+    public class InitialStateRepository : IInitialStateRepository
     {
         private readonly GameOfLifeContext _context;
 

@@ -14,6 +14,6 @@ namespace DataLayerGameOfLife.Models
 
         public string RuleLogic { get; set; }
 
-
+       
     }
 }

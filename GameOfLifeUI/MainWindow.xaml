@@ -13,8 +13,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Name="Start" Content="Start" Click="StartButton_Click" Margin="10" />
+            <ComboBox x:Name="InitialStateComboBox" Width="200" Margin="10" DisplayMemberPath="Name" SelectionChanged="InitialStateComboBox_SelectionChanged"/>
+            <TextBox x:Name="InitialStateNameTextBox" Width="200" Margin="10"/>
+            <Button Content="Create" Click="CreateButton_Click" Margin="10" />
+            <Button Content="Delete" Click="DeleteButton_Click" Margin="10" />
+            <Button Name="Start" Content="Start" Click="StartButton_Click" Margin="10" MouseLeftButtonDown="GameCanvas_MouseLeftButtonDown"/>
         </StackPanel>
-        <Canvas x:Name="GameCanvas" Background="White" Grid.Row="1" />
+        <Canvas x:Name="GameCanvas" Background="White" Grid.Row="1" MouseLeftButtonDown="GameCanvas_MouseLeftButtonDown" />
     </Grid>
 </Window>
