@@ -29,7 +29,11 @@ namespace GameOfLifeUI
 
         private readonly IInitialStateRepository _initialStateRepository;
 
+        private readonly IRuleRepository _ruleRepositiory;
+
         private List<(int X, int Y)> initialAliveCells;
+
+        private IRule ruleSelected;
 
         private bool running;
 
@@ -37,6 +41,7 @@ namespace GameOfLifeUI
         {
             InitializeComponent();
             this._initialStateRepository = new InitialStateRepository();
+            this._ruleRepositiory = new RuleRepository();
             LoadData();
             initialAliveCells = new List<(int X, int Y)>();
             DrawGrid();
@@ -47,23 +52,11 @@ namespace GameOfLifeUI
         {
             var initialStates = this._initialStateRepository.GetAll();
             InitialStateComboBox.ItemsSource = initialStates;
+
+            var rules = this._ruleRepositiory.GetAll();
+            RuleComboBox.ItemsSource = rules;
         }
 
-        private void InitializeGame()
-        {
-            var initialAliveCElls = new List<(int X, int Y)>
-            {
-                (1,1),(1,2),(1,3)
-            };
-
-            var rule = new StandardRule();
-            game = new GameOfLife.GameOfLife(Rows, Cols, rule, initialAliveCElls);
-
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += Timer_Tick;
-
-        }
 
         private void Timer_Tick(object send,EventArgs e)
         {
@@ -136,9 +129,8 @@ namespace GameOfLifeUI
         {
             if (running == false)
             {
-                var rule = new StandardRule();
 
-                game = new GameOfLife.GameOfLife(Rows, Cols, rule, initialAliveCells);
+                game = new GameOfLife.GameOfLife(Rows, Cols, ruleSelected, initialAliveCells);
 
                 timer = new DispatcherTimer();
 
@@ -225,6 +217,53 @@ namespace GameOfLifeUI
             }
 
             DrawGrid();
+
+        }
+
+        private void RuleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(RuleComboBox.SelectedItem is Rule selectedRule)
+            {
+                this.ruleSelected= new CustomRule(selectedRule.RuleLogic);
+            }
+        }
+
+        private void CreateRuleButton_Click(Object sender, RoutedEventArgs e)
+        {
+            var name = RuleNameTextBox.Text;
+            var logic = RuleLogicTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please ente a name");
+            }
+
+            if (string.IsNullOrWhiteSpace(logic))
+            {
+                MessageBox.Show("Please ente a Logic");
+            }
+
+            var rule = new Rule { Name=name, RuleLogic=logic };
+
+            this._ruleRepositiory.Add(rule);
+            LoadData();
+            RuleNameTextBox.Clear();
+            RuleLogicTextBox.Clear();
+            MessageBox.Show("Rule created Succesfully");
+        }
+
+        private void DeleteRuleButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if(RuleComboBox.SelectedItem is Rule selectedRule)
+            {
+                this._ruleRepositiory.Delete(selectedRule.Id);
+                LoadData() ;
+                MessageBox.Show("Rule deleted succesfully");
+            }
+            else
+            {
+                MessageBox.Show("Please select a rule to delete");
+            }
 
         }
     }

@@ -17,6 +17,13 @@
             <TextBox x:Name="InitialStateNameTextBox" Width="200" Margin="10"/>
             <Button Content="Create" Click="CreateButton_Click" Margin="10" />
             <Button Content="Delete" Click="DeleteButton_Click" Margin="10" />
+
+            <ComboBox x:Name="RuleComboBox" Width="200" Margin="10" DisplayMemberPath="Name" SelectionChanged="RuleComboBox_SelectionChanged"/>
+            <TextBox x:Name="RuleNameTextBox" Width="150" Margin="10"/>
+            <TextBox x:Name="RuleLogicTextBox" Width="150" Margin="10"/>
+            <Button Content="Create Rule" Click="CreateRuleButton_Click" Margin="10" />
+            <Button Content="Delete Rule" Click="DeleteRuleButton_Click" Margin="10" />
+
             <Button Name="Start" Content="Start" Click="StartButton_Click" Margin="10" MouseLeftButtonDown="GameCanvas_MouseLeftButtonDown"/>
         </StackPanel>
         <Canvas x:Name="GameCanvas" Background="White" Grid.Row="1" MouseLeftButtonDown="GameCanvas_MouseLeftButtonDown" />
