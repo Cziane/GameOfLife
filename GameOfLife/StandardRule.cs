@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife
 {
-    internal class StandardRule : IRule
+    public class StandardRule : IRule
     {
         public Cell GetNextState(Cell cell, int aliveNeighbors)
         {
