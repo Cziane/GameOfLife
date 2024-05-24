@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife
 {
-    internal interface IRule
+    public interface IRule
     {
         Cell GetNextState(Cell cell, int aliveNeighbors);
     }
